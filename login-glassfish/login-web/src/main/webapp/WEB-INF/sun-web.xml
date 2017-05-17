@@ -1,0 +1,17 @@
+<sun-web-app error-url="">
+    <context-root>/faces</context-root>
+    <security-role-mapping>
+        <role-name>Admin</role-name>
+        <group-name>Administrador</group-name>
+    </security-role-mapping>
+    <security-role-mapping>
+        <role-name>Vendedor</role-name>
+        <group-name>Vendedor</group-name>
+    </security-role-mapping>
+    <class-loader delegate="true" />
+    <jsp-config>
+        <property name="keepgenerated" value="true">
+            <description>Keep a copy of the generated servlet class java code.</description>
+        </property>
+    </jsp-config>
+</sun-web-app>

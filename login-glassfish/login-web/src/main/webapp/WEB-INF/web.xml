@@ -21,4 +21,41 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>loginRealm</realm-name>
+        <form-login-config>
+          <form-login-page>/faces/index.xhtml</form-login-page>
+          <form-error-page>/faces/index.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+      <role-name>Admin</role-name>
+    </security-role>
+    <security-role>
+        <role-name>Vendedor</role-name>
+    </security-role>
+    <security-constraint>
+        <web-resource-collection>
+          <web-resource-name>admin-area</web-resource-name>
+          <url-pattern>/faces/usuario/*</url-pattern>
+          <url-pattern>/faces/rol/*</url-pattern>
+          <url-pattern>/faces/empleado/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+          <description>admins should be allowed to access this resources</description>
+          <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+          <web-resource-name>common-area</web-resource-name>
+          <url-pattern>/faces/cliente/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+          <description>editors should be allowed to access this resources</description>
+          <role-name>Vendedor</role-name>
+          <role-name>Admin</role-name>
+        </auth-constraint>
+    </security-constraint>
 </web-app>

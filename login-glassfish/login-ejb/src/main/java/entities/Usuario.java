@@ -6,6 +6,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -75,7 +76,7 @@ public class Usuario implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = this.sha256(password);
     }
     
     public List<Rol> getRoles() {
@@ -126,6 +127,23 @@ public class Usuario implements Serializable {
             }
         }
         return roles2;
+    }
+
+    public String sha256(String base){
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(base.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+            
+            for(int i =0 ;i<hash.length;i++){
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if (hex.length()==1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        }catch(Exception e){
+            throw new RuntimeException(e);
+        }
     }
     
 }
