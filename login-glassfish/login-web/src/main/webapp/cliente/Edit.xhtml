@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteEditDlg" widgetVar="ClienteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditClienteTitle}">
+            <h:form id="ClienteEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{clienteController.selected.nombre}" title="#{bundle.CreateClienteTitle_nombre}" />
+                        <p:outputLabel value="Correo: " for="correo" />
+                        <p:inputText id="correo" value="#{clienteController.selected.correo}" title="Correo" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{clienteController.selected.password}" title="#{bundle.CreateClienteTitle_password}" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_contrato}" for="contrato" />
+                        <p:inputText id="contrato" value="#{clienteController.selected.contrato}" title="#{bundle.CreateClienteTitle_contrato}" />
+                        <p:outputLabel value="Roles" for="roles" />
+                        <p:selectManyCheckbox id="roles" value="#{clienteController.roles}">
+                            <f:selectItems value="#{rolController.itemsAvailableSelectMany}" var="rol" itemLabel="#{rol.nombre}" itemValue="#{rol.id}"/>
+                        </p:selectManyCheckbox>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{clienteController.update}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ClienteEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
