@@ -173,6 +173,10 @@ public class UsuarioController implements Serializable {
     public Usuario getUsuario(java.lang.Long id) {
         return getFacade().find(id);
     }
+    
+    public Usuario getUsuarioCorreo(String correo){
+        return getFacade().findCorreo(correo);
+    }
 
     public List<Usuario> getItemsAvailableSelectMany() {
         return getFacade().findAll();

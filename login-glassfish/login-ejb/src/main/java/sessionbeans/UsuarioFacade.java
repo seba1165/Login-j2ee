@@ -28,5 +28,11 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     public UsuarioFacade() {
         super(Usuario.class);
     }
+
+    @Override
+    public Usuario findCorreo(String correo) {
+        Usuario usuario = null;
+        return usuario;
+    }
     
 }

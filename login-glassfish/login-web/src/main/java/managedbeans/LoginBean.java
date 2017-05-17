@@ -5,11 +5,13 @@
  */
 package managedbeans;
 
+import entities.Usuario;
 import java.io.IOException;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +24,9 @@ import javax.servlet.http.HttpServletRequest;
 public class LoginBean {
     private String username;
     private String password;
+    private Usuario usuarioLogueado;
+    @Inject
+    UsuarioController usrCtrl;
  
     public String getUsername() {
         return username;
@@ -35,11 +40,20 @@ public class LoginBean {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Usuario getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
+
+    public void setUsuarioLogueado(Usuario usuarioLogueado) {
+        this.usuarioLogueado = usuarioLogueado;
+    }
  
     public void login(){
         HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         try {
             request.login(username, password);
+            usuarioLogueado = usrCtrl.getUsuario(Long.MIN_VALUE);
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage("",
             new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid credentials, try again", ""));
